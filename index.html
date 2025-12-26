@@ -1,715 +1,527 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" data-theme="dark">
 <head>
-	<title>Suyash Sharma Portfolio</title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suyash Sharma | My Portfolio</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- THEME VARIABLES --- */
+        :root {
+            /* Default Dark Mode (Cyber) */
+            --bg-color: #0f172a;       /* Slate 900 */
+            --card-bg: #1e293b;        /* Slate 800 */
+            --card-alt-bg: #020617;    /* Slate 950 */
+            --accent: #38bdf8;         /* Sky 400 */
+            --text-primary: #f8fafc;   /* Slate 50 */
+            --text-secondary: #94a3b8; /* Slate 400 */
+            --border-color: rgba(255, 255, 255, 0.05);
+            --shadow-color: rgba(0, 0, 0, 0.3);
+            --metric-border: #22c55e;  /* Green */
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
 
-	<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+        [data-theme="light"] {
+            /* Apple Style Light Mode */
+            --bg-color: #f5f5f7;       /* Apple Page Background (Light Grey) */
+            --card-bg: #ffffff;        /* Pure White Cards */
+            --card-alt-bg: #f5f5f7;    /* Inner Sections (Light Grey) */
+            --accent: #0066cc;         /* Apple Link Blue */
+            --text-primary: #1d1d1f;   /* Apple Heading Black */
+            --text-secondary: #86868b; /* Apple Body Grey */
+            --border-color: rgba(0, 0, 0, 0.0); /* No borders, just shadow */
+            --shadow-color: rgba(0, 0, 0, 0.08);
+            --metric-border: #0066cc;  /* Apple Blue */
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); /* Soft Apple-like shadow */
+        }
 
-	<link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
-	<link rel="stylesheet" href="css/animate.css">
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1), color 0.5s ease;
+        }
 
-	<link rel="stylesheet" href="css/owl.carousel.min.css">
-	<link rel="stylesheet" href="css/owl.theme.default.min.css">
-	<link rel="stylesheet" href="css/magnific-popup.css">
+        /* --- LAYOUT --- */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-auto-rows: auto;
+            gap: 1.5rem;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            grid-auto-flow: dense; 
+        }
 
-	<link rel="stylesheet" href="css/aos.css">
+        @media (max-width: 1024px) {
+            .bento-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 640px) {
+            .bento-grid { grid-template-columns: 1fr; }
+        }
 
-	<link rel="stylesheet" href="css/ionicons.min.css">
+        /* --- CARD STYLES --- */
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 1.5rem; /* Apple uses ~20-24px radii */
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+            position: relative;
+            height: 100%;
+            box-shadow: var(--card-shadow);
+        }
 
-	<link rel="stylesheet" href="css/flaticon.css">
-	<link rel="stylesheet" href="css/icomoon.css">
-	<link rel="stylesheet" href="css/style.css">
+        .card:hover {
+            transform: translateY(-4px) scale(1.005);
+            box-shadow: 0 20px 40px -5px var(--shadow-color);
+            border-color: var(--accent);
+        }
+        
+        /* Light mode hover adjustment for cleaner look */
+        [data-theme="light"] .card:hover {
+            border-color: rgba(0,0,0,0); /* Keep border invisible in light mode hover */
+        }
 
+        /* --- GRID AREAS --- */
+        .area-profile { grid-column: span 2; grid-row: span 2; }
+        .area-status  { grid-column: span 1; grid-row: span 1; }
+        .area-stack   { grid-column: span 1; grid-row: span 1; }
+        .area-socials { grid-column: span 1; grid-row: span 2; }
+        .area-project { grid-column: span 2; grid-row: span 1; }
+        .area-metrics { grid-column: span 1; grid-row: span 1; }
+        .area-contact { grid-column: span 1; grid-row: span 1; }
+        .area-journey { grid-column: span 2; grid-row: span 1; }
+        .area-exp     { grid-column: span 2; grid-row: span 1; }
+        
+        /* NEW SECTIONS ADDED HERE */
+        .area-edu     { grid-column: span 2; grid-row: span 1; }
+        .area-certs   { grid-column: span 2; grid-row: span 1; }
 
+        /* --- TYPOGRAPHY --- */
+        h1 { font-size: 2.5rem; font-weight: 700; line-height: 1.1; margin-bottom: 0.5rem; letter-spacing: -0.02em; }
+        h2 { font-size: 1.25rem; font-weight: 600; margin-bottom: 1rem; color: var(--accent); }
+        p { color: var(--text-secondary); line-height: 1.6; font-size: 0.95rem; }
+        
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            background: rgba(56, 189, 248, 0.1);
+            color: var(--accent);
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Apple style badge in light mode */
+        [data-theme="light"] .badge {
+            background: #eef4ff;
+            color: #0066cc;
+        }
 
-	<style>
-		/*======================================
-//--//-->   ABOUT
-======================================*/
+        .gradient-text {
+            background: linear-gradient(to right, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        /* Apple Light Mode: Clean Black or subtle Blue gradient */
+        [data-theme="light"] .gradient-text {
+            background: linear-gradient(to right, #1d1d1f, #434344);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
 
-		.about-mf .box-shadow-full {
-			padding-top: 4rem;
-			padding-bottom: 4rem;
-		}
-
-		.about-mf .about-img {
-			margin-bottom: 2rem;
-		}
-
-		.about-mf .about-img img {
-			margin-left: 10px;
-		}
-
-
-		.skill-mf .progress {
-			/* background-color: #cde1f8; */
-			margin: .5rem 0 1.2rem 0;
-			border-radius: 0;
-			height: .7rem;
-		}
-
-		.skill-mf .progress .progress-bar {
-			height: .7rem;
-			background-color: #ffbd39;
-		}
-
-
-		/* Animation styles */
-		#typing-animation {
-			position: relative;
-			font-size: 30px;
-			font-weight: bold;
-			color: rgb(255, 255, 255);
-			overflow: hidden;
-			white-space: nowrap;
-			animation: typing 3s steps(20, end) infinite;
-		}
-
-		#typing-animation:before {
-			content: "";
-			/* position: absolute; */
-			top: 0;
-			left: 0;
-			width: 0;
-			height: 100%;
-			background-color: #ccc;
-			animation: typing-cursor 0.5s ease-in-out infinite;
-		}
-
-		@keyframes typing {
-			from {
-				width: 0;
-			}
-
-			to {
-				width: 100%;
-			}
-		}
-
-		@keyframes typing-cursor {
-			from {
-				width: 5px;
-			}
-
-			to {
-				width: 0;
-			}
-		}
-
-
-		/* project image zoom effect */
-
-		.zoom-effect {
-			overflow: hidden;
-			transition: transform 0.3s ease-out;
-		}
-
-		.zoom-effect:hover {
-			transform: scale(1.1);
-		}
-	</style>
-
-
+        /* --- TECH ICONS --- */
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+        .tech-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: var(--card-alt-bg);
+            border-radius: 0.75rem;
+            padding: 0.75rem;
+            transition: 0.3s;
+            color: var(--text-secondary);
+        }
+        .tech-item:hover { background: rgba(56, 189, 248, 0.1); color: var(--accent); }
+        .tech-item i { font-size: 1.5rem; margin-bottom: 0.25rem; }
+        .tech-item span { font-size: 0.7rem; }
+        
+        /* --- ANIMATIONS --- */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+            100% { transform: translateY(0px); }
+        }
+        .float-anim { animation: float 6s ease-in-out infinite; }
+        
+        /* --- SCROLLBAR --- */
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: var(--text-secondary); border-radius: 2px; opacity: 0.5; }
+        
+        /* --- THEME TOGGLE BUTTON --- */
+        .theme-toggle {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 50;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 0.75rem;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 4px 12px var(--shadow-color);
+            transition: all 0.3s ease;
+        }
+        /* Light mode button shadow fix */
+        [data-theme="light"] .theme-toggle {
+             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+             border: none;
+        }
+        .theme-toggle:hover { transform: rotate(15deg) scale(1.1); color: var(--accent); }
+    </style>
 </head>
-
-<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
-
-
-	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar">
-		<div class="container">
-			<a class="navbar-brand" href="index.html">Suyash Sharma</a>
-			<button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse"
-				data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="oi oi-menu"></span> Menu
-			</button>
-
-			<div class="collapse navbar-collapse" id="ftco-nav">
-				<ul class="navbar-nav nav ml-auto">
-					<li class="nav-item"><a href="#home-section" class="nav-link"><span>Home</span></a></li>
-					<li class="nav-item"><a href="#about-section" class="nav-link"><span>About</span></a></li>
-					<li class="nav-item"><a href="#resume-section" class="nav-link"><span>CV</span></a></li>
-					<li class="nav-item"><a href="#project-section" class="nav-link"><span>Projects</span></a></li>
-					<li class="nav-item"><a href="#contact-section" class="nav-link"><span>Contact</span></a></li>
-				</ul>
-			</div>
-		</div>
-	</nav>
-	<section id="home-section" class="hero">
-		<div class="home-slider  owl-carousel">
-			<div class="slider-item ">
-				<div class="overlay"></div>
-				<div class="container">
-					<div class="row d-md-flex no-gutters slider-text align-items-end justify-content-end"
-						data-scrollax-parent="true">
-						<div class="one-third js-fullheight order-md-last img"
-							style="background-color: black;">
-							<div class="overlay"></div>
-						</div>
-						<div class="one-forth d-flex  align-items-center ftco-animate"
-							data-scrollax=" properties: { translateY: '70%' }">
-							<div class="text">
-								<span class="subheading">Hey!</span>
-								<h1 class="mb-4 mt-3">I'm <span>Suyash Sharma</span></h1>
-
-								<!-- Element to contain animated typing -->
-								<span id="typing-animation"></span>
-
-								<script>
-
-									// Initialize the typing animation
-									const typingAnimationElement = document.getElementById('typing-animation');
-
-									// Create an array of typing text
-									const typingTexts = [
-										'Data Analyst  ',
-										'Tech Enthusiastic',
-										'Executive Associate',
-									];
-
-									// Create a function to display the typing animation for a given text
-									function playTypingAnimation(text) {
-										// Loop through each character and add it to the element
-										for (let i = 0; i < text.length; i++) {
-											setTimeout(() => {
-												typingAnimationElement.textContent += text[i];
-											}, i * 200); // Increase the delay to slow down the typing animation
-										}
-
-										// Once the animation is complete, reset the text and start over
-										setTimeout(() => {
-											typingAnimationElement.textContent = '';
-											playTypingAnimation(typingTexts[(typingTexts.indexOf(text) + 1) % typingTexts.length]);
-										}, text.length * 200);
-									}
-
-									// Start the typing animation loop
-									playTypingAnimation(typingTexts[0]);
-
-								</script>
-
-								<br>
-								<br>
-								<h2> DA/Associate</h2>
-								<!-- <h2 class="d-flex" style="margin-bottom: 0">With over 5 years of experience</h2> -->
-								<!-- <br> -->
-								<p> <a href="https://public.tableau.com/app/profile/suyash.sharma3778/vizzes"
-										class="btn btn-white btn-outline-white py-3 px-4">My Works</a>
-								</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-
-
-
-	<section class="ftco-about img ftco-section ftco-no-pb" id="about-section">
-		<div class="container">
-			<div class="row">
-				<div class="row d-flex align-items-stretch">
-					<!-- <div class="row d-flex"> -->
-					<div class="col-md-6 col-lg-5 d-flex">
-						<div class="img-about img d-flex align-items-stretch">
-							<div class="overlay">
-								<div class="row">
-									<div class="col-sm-6 col-md-5">
-										<div class="about-img">
-											<img src="images/111.jpeg" class="img-fluid rounded b-shadow-a" alt="">
-										</div>
-									</div>
-									<!-- Details next to profile image -->
-									<div class="col-sm-6 col-md-7">
-										<div class="about-info">
-											<p><span class="title-s">Name: </span> <span>Suyash Sharma</span></p>
-											<p><span class="title-s">Job Role: </span> <span> DA/EA/BA</span>
-											</p>
-											<p><span class="title-s">Experience: </span> <span>3 Years </span>
-											</p>
-											<p><span class="title-s">Address: </span> <span>Cork, Ireland</span></p>
-										</div>
-									</div>
-								</div>
-
-								<div class="skill-mf">
-									<p class="title-s">Skills</p>
-									<span>SQL</span> <span class="pull-right">90%</span>
-									<div class="progress">
-										<div class="progress-bar" role="progressbar" style="width: 90%;"
-											aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-									</div>
-
-									<span>PYTHON</span> <span class="pull-right">70%</span>
-									<div class="progress">
-										<div class="progress-bar" role="progressbar" style="width: 70%"
-											aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
-									</div>
-
-									<span>Data Visualisation</span> <span class="pull-right">95%</span>
-									<div class="progress">
-										<div class="progress-bar" role="progressbar" style="width: 90%"
-											aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-									</div>
-
-									<span>Data Analysis</span> <span class="pull-right">90%</span>
-									<div class="progress">
-										<div class="progress-bar" role="progressbar" style="width: 90%"
-											aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-									</div>
-
-									<span>Data Cleaning</span> <span class="pull-right">90%</span>
-									<div class="progress">
-										<div class="progress-bar" role="progressbar" style="width: 90%"
-											aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-md-6 col-lg-7 pl-lg-5 pb-5">
-						<div class="row justify-content-start pb-3">
-							<div class="col-md-12 heading-section ftco-animate">
-
-								<h1 class="big"></h1>
-								<h2 class="mb-4">Who Am I?</h2>
-
-								<p>I’m a 23-year-old from Mhow, Central India, where I learned the value of resilience and hard work early on by helping
-									my father with his food business. This experience sparked my passion for business operations and problem-solving.
-									Throughout my academic journey, I proactively learned SQL, Power BI, and more, working on real-world projects and
-									assignments for international students. I’ve held roles as a Business Operations Analyst and Data Analyst Intern for
-									two Indian SMEs and successfully founded two side startups, generating over $50,000 in revenue. Recently, I
-									completed an MSc in Information Systems for Business Performance with first class honours from University College Cork.</p>
-								<ul class="about-info mt-4 px-md-0 px-2">
-									<li class="d-flex"><span>Profile:</span> <span>Data Analytics/Business Development &amp;
-											Associate</span>
-									</li>
-									<li class="d-flex"><span>Domain:</span> <span>IT, Ecommerce, Supply Chain,
-											Startups &amp; Digital
-											Marketing</span></li>
-									<li class="d-flex"><span>Education:</span> <span>Msc. in Information Systems (UCC)
-										</span></li>
-									<li class="d-flex"><span>Language:</span> <span>English, Hindi</span></li>
-									<li class="d-flex"><span>BI Tools:</span> <span>Microsoft Power BI, Looker &amp;
-											Tableau</span></li>
-									<li class="d-flex"><span>Other Skills:</span> <span>365 Dynamics, MS Excel, MS
-											Excess,
-											HTML, CSS, JS, Python, MySQL &amp; Power Query</span></li>
-									<li class="d-flex"><span>Interest:</span> <span>Book Reading, Programming, Cooking,
-											Research</span></li>
-
-								</ul>
-							</div>
-						</div>
-
-
-						<div class="counter-wrap ftco-animate d-flex mt-md-3">
-							<div class="text">
-								<p class="mb-4">
-									<span class="number" data-number="15">0</span> <span>+</span>
-									<span>&nbsp; Projects completed</span>
-								</p>
-								<p><a href="https://www.linkedin.com/in/suyashsharma31/"
-										class="btn btn-primary py-3 px-3">LinkedIn</a></p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-
-
-	<section class="ftco-section ftco-no-pb" id="resume-section">
-		<div class="container">
-			<div class="row justify-content-center pb-5">
-				<div class="col-md-10 heading-section text-center ftco-animate">
-					<h1 class="big big-2">CV</h1>
-					<h2 class="mb-4">CV</h2>
-					<p>I’m a data analyst/Executive Assistant with 3+ years of experience, passionate about uncovering insights that fuel growth and
-						innovation. My strengths include data visualization, problem solving, and decision-support, which enable me to
-						reveal trends and patterns that support strategic decisions. I’m skilled in tools like MySQL, Excel, Python, Power
-						BI, Tableau, and Microsoft 365, all of which help me turn raw data into actionable insights that enhance business
-						efficiency and drive impact.
-					</p>
-				</div>
-			</div>
-
-			<div class="row">
-				<h1 class="big-4">Experience</h1>
-				<div class="underline"></div>
-			</div>
-			<br>
-
-			<div class="row">
-				<div class="col-md-6">
-
-					<div class="resume-wrap ftco-animate">
-						<span class="date">2024-Present</span>
-						<h2> Personal Assistant</h2>
-						<span class="position">Dr Len Harty, Cork Rheumatology</span>
-						<p class="mt-4">Cork Rheumatology provides accurate and reliable information on arthritis and musculoskeletal disorders. 
-						<ul>
-							<li>I provide administrative support, manage communications, schedule appointments, and handle confidential records for
-								patients and the executive team. </li>
-							<li>I ensure smooth communication between departments and respond to phone calls and emails quickly.</li>
-						</ul>
-						</p>
-					</div>
-
-					<div class="resume-wrap ftco-animate">
-						<span class="date">2022-2023</span>
-						<h2> Data Analyst & Business Developer</h2>
-						<span class="position">Tingker IT </span>
-						<p class="mt-4">Tingker IT is a growing software solutions provider of innovative IT solutions, software, web,
-							and mobile apps. 
-						<ul>
-							<li>Led and managed 5+ data analysis projects from design to implementation, improving
-								current processes to increase
-								data accuracy and client satisfaction by 15%</li>
-							<li>Built and presented 5+ real-time dashboards using Power BI to showcase industry trends
-								and growing opportunities, increasing client portfolio by 15%.</li>
-						</ul>
-						</p>
-					</div>
-
-				</div>
-
-				<div class="col-md-6">
-					<div class="resume-wrap ftco-animate">
-						<span class="date">2021-2022</span>
-						<h2>Business Analyst</h2>
-						<span class="position">Shubham Foods Pvt. Ltd</span>
-						<p class="mt-4">Shubham Foods Pvt. Ltd., is one of the India’s fast growing dairy industries with a Milk handling
-							capacity of 2.5Lac ltr/day. 
-						<ul>
-							<li>Analysed large datasets regarding product inventory and supply chain, using MySQL and Python, enhancing the overall
-								department efficiency by 20%.</li>
-							<li>Implemented Microsoft SQL Server to record and manage complex client data, improving the company’s sales
-								by 30%.</li>
-						</ul>
-						</p>
-					</div>
-
-				</div>
-			</div>
-
-			<br>
-			<br>
-
-			<div class="row">
-				<h1 class="big-4">Education</h1>
-				<div class="underline"></div>
-			</div>
-			<br>
-
-			<div class="row">
-				<div class="col-md-6">
-					<div class="resume-wrap ftco-animate">
-						<span class="date">2023-2024</span>
-						<h2>Msc. in Information Systems </h2>
-						<span class="position">University College Cork (UCC), Ireland</span>
-						<p class="mt-4">Grade: 1.1 - First Class Honours. 
-							<ul>
-							<li> Core Modules: Database Design & Analysis, Database Management, System Analysis, Application Design, Business
-								Intelligence & Analytics, IT Project Management, & Digital Governance & Compliance.</li>
-							<li> Build An AI Chatbot (Finbarr) for Cork Unversity Business School, UCC to enhance student decision-making process.
-							</li>	
-							</ul>
-						</p>
-					</div>
-				</div>
-
-				<div class="col-md-6">
-					<div class="resume-wrap ftco-animate">
-						<span class="date">2018-2021</span>
-						<h2>Bachelors in Business Administration</h2>
-						<span class="position">Dr. APJ. Abdul Kalam University, India.</span>
-						<p class="mt-4">Grade: 2.1 - Second Class Honours, Grade 1</p>
-						<ul>
-							<li> Core Modules: Finnancial Analysis & Pro Forma, Business Analysis, IT Development & Innovation, Organisational
-								Accountancy & Finance, Business Administration, Organisational Management & Communication.
-							</li>
-							<li>Recognised for writing the best research paper on “Sustainable Leadership” in the final year.
-							</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-
-			<div class="row justify-content-center mt-5">
-				<div class="col-md-6 text-center ftco-animate">
-					<p><a href="https://drive.google.com/file/d/1Rxr8DGiUnRKpRpHt3eUO1ERNMX-vkuIv/view?usp=sharing" class="btn btn-primary py-4 px-5">Download CV</a></p>
-				</div>
-			</div>
-		</div>
-	</section>
-
-
-
-	<section class="ftco-section" id="project-section">
-		<div class="container">
-			<div class="row justify-content-center mb-5 pb-5">
-				<div class="col-md-7 heading-section text-center ftco-animate">
-					<h1 class="big big-2">Projects</h1>
-					<h2 class="mb-4">Projects</h2>
-					<p>During my master’s at UCC, I developed "Finbarr," an AI chatbot to enhance student decision-making at CUBS. I also
-						explored data analytics using Power BI and Tableau, driven by my curiosity and passion for learning.
-						</p>
-				</div>
-			</div>
-			<div class="row d-flex">
-				<div class="col-md-4 d-flex ftco-animate">
-					<div class="blog-entry justify-content-end">
-						<a href="https://github.com/Avani3112/Biggin_Hill_Airport_Information_System"
-							class="block-20 zoom-effect" style="background-image: url('images/proj_1.jpeg');">
-						</a>
-						<div class="text mt-3 float-right d-block">
-
-							<h3 class="heading"><a
-									href="https://github.com/Avani3112/Biggin_Hill_Airport_Information_System">Airman Database Management Project, using MySQL and NoSQL.</a></h3>
-							<p>Built a DBMS for a company called Airman and analysed the flight data using advanced SQL queries.</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4 d-flex ftco-animate">
-					<div class="blog-entry justify-content-end">
-						<a href="https://github.com/Avani3112/Salt-Production-Data-Analysis-Project-Power-BI-/blob/main/BI_Dashboard_Group_Project%20(1).pdf"
-							class="block-20 zoom-effect" style="background-image: url('images/proj_2.jpeg');">
-						</a>
-						<div class="text mt-3 float-right d-block">
-
-							<h3 class="heading"><a
-									href="https://github.com/Avani3112/Salt-Production-Data-Analysis-Project-Power-BI-/blob/main/BI_Dashboard_Group_Project%20(1).pdf">
-									Power BI Dashboard Project for Salt Production</a></h3>
-							<p>Performed exploratory data analysis & clearning on different movies dataset using MS Excel & Power BI. </p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4 d-flex ftco-animate">
-					<div class="blog-entry">
-						<a href="https://public.tableau.com/app/profile/suyash.sharma3778/viz/SalesCustomerDashboardsAdvanced/SalesDashboard"
-							class="block-20 zoom-effect" style="background-image: url('images/proj_3.jpeg');">
-						</a>
-						<div class="text mt-3 float-right d-block">
-
-							<h3 class="heading"><a
-									href="https://public.tableau.com/app/profile/suyash.sharma3778/viz/SalesCustomerDashboardsAdvanced/SalesDashboard"> 
-									Advanced Sales & Customer dashboards Project(Tableau) </a></h3>
-							<p>Built two dynamic Tableau dashboards using Sales and Customers data to identify sales and customer growth and weekly trends.</p>
-						</div>
-					</div>
-				</div>
-			</div>
-			<br>
-			<!-- added justify-content-center to center align the last two projects -->
-			<div class="row d-flex justify-content-center">
-				<div class="col-md-4 d-flex ftco-animate">
-					<div class="blog-entry justify-content-end">
-						<a href="https://public.tableau.com/app/profile/suyash.sharma3778/viz/Book1_17261503356040/Dashboard1"
-							class="block-20 zoom-effect" style="background-image: url('images/proj_4.jpeg');">
-						</a>
-						<div class="text mt-3 float-right d-block">
-
-							<h3 class="heading"><a
-									href="https://public.tableau.com/app/profile/suyash.sharma3778/viz/Book1_17261503356040/Dashboard1"> TripAdvisor Project</a></h3>
-							<p>Predicting Hotel Ratings: Analysing TripAdvisor Reviews of 21 Las Vegas Hotels Using SVM and XGBoost Ensemble.</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4 d-flex ftco-animate">
-					<div class="blog-entry justify-content-end">
-						<a href="https://huggingface.co/spaces/Ankerrr/Finbarr-v3"
-							class="block-20 zoom-effect" style="background-image: url('images/proj_5.jpeg');">
-						</a>
-						<div class="text mt-3 float-right d-block">
-
-							<h3 class="heading"><a
-									href="https://huggingface.co/spaces/Ankerrr/Finbarr-v3"> Finbarr AI Chatbot Project</a></h3>
-							<p>Built an AI chatbot that provides information related to CUBS & UCC courses & modules. </p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<section class="ftco-section ftco-no-pt ftco-no-pb ftco-counter img" id="section-counter">
-		<div class="container">
-			<div class="row d-md-flex align-items-center">
-				<div class="col-md d-flex justify-content-center counter-wrap ftco-animate">
-					<div class="block-18">
-						<div class="text">
-							<strong class="number" data-number="2">0</strong>
-							<span>Succesfull Startups</span>
-						</div>
-					</div>
-				</div>
-				<div class="col-md d-flex justify-content-center counter-wrap ftco-animate">
-					<div class="block-18">
-						<div class="text">
-							<strong class="number" data-number="15">0</strong>
-							<span>Projects</span>
-						</div>
-					</div>
-				</div>
-				<div class="col-md d-flex justify-content-center counter-wrap ftco-animate">
-					<div class="block-18">
-						<div class="text">
-							<strong class="number" data-number="400">0</strong>
-							<span>Self-taught Assignments Made</span>
-						</div>
-					</div>
-				</div>
-				<div class="col-md d-flex justify-content-center counter-wrap ftco-animate">
-					<div class="block-18">
-						<div class="text">
-							<strong class="number" data-number="100">0</strong>
-							<span> Book Reading </span>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="ftco-section ftco-hireme img margin-top" style="background-image: url(images/bg_1.jpg)">
-			<!-- <div class="container"> -->
-			<div class="row justify-content-center">
-				<div class="col-md-7 ftco-animate text-center">
-					<h2>More projects on<span> Github </span> </h2>
-					<div class="heading">
-						<h4> I love to solve business problems &amp; uncover hidden data stories. So, have a challenge! Hit Me. </h4>
-						<br>
-						<p><a href="https://github.com/Avani3112" class="btn btn-primary py-3 px-5">GitHub</a></p>
-					</div>
-				</div>
-			</div>
-			<!-- </div> -->
-		</div>
-	</section>
-
-
-
-	<section class="ftco-section contact-section ftco-no-pb" id="contact-section">
-		<div class="container">
-			<div class="row justify-content-center mb-5 pb-3">
-				<div class="col-md-7 heading-section text-center ftco-animate">
-					<h1 class="big big-2">Contact</h1>
-					<h2 class="mb-4">Contact Me</h2>
-					<p>Below are the ways to reach out to me!</p>
-				</div>
-			</div>
-
-			<div class="row d-flex contact-info mb-5">
-				<div class="col-md-6 col-lg-3 d-flex ftco-animate">
-					<div class="align-self-stretch box p-4 text-center">
-						<div class="icon d-flex align-items-center justify-content-center">
-							<span class="icon-map-signs"></span>
-						</div>
-						<h3 class="mb-4">Address</h3>
-						<p>Cork, Ireland</p>
-					</div>
-				</div>
-				<div class="col-md-6 col-lg-3 d-flex ftco-animate">
-					<div class="align-self-stretch box p-4 text-center">
-						<div class="icon d-flex align-items-center justify-content-center">
-							<span class="icon-phone2"></span>
-						</div>
-						<h3 class="mb-4">Mobile Phone</h3>
-						<p><a href="tel://0899824782">0899824XXX</a></p>
-					</div>
-				</div>
-				<div class="col-md-6 col-lg-3 d-flex ftco-animate">
-					<div class="align-self-stretch box p-4 text-center">
-						<div class="icon d-flex align-items-center justify-content-center">
-							<span class="icon-paper-plane"></span>
-						</div>
-						<h3 class="mb-4">Email Address</h3>
-						<p><a href="mailto:sharmasuyash415@gmail.com">sharmasuyash415@gmail.com</a></p>
-					</div>
-				</div>
-				<div class="col-md-6 col-lg-3 d-flex ftco-animate">
-					<div class="align-self-stretch box p-4 text-center">
-						<div class="icon d-flex align-items-center justify-content-center">
-							<span class="icon-globe"></span>
-						</div>
-						<h3 class="mb-4">Download CV</h3>
-						<p><a href="https://drive.google.com/file/d/1Rxr8DGiUnRKpRpHt3eUO1ERNMX-vkuIv/view?usp=sharing">Click Here</a></p>
-					</div>
-				</div>
-
-				<div class="container">
-					<br>
-					<br>
-					<div class="row justify-content-center">
-						<div class="col-md-7 ftco-animate text-center">
-							<h2>Wanna <span> Be in Touch? </span> <a href="https://forms.gle/5BfhMm6n54eXt3pa6"
-									class="btn btn-primary py-3 px-5">Click Me</a> </h2>
-						</div>
-					</div>
-					<br>
-					<ul class="ftco-footer-social list-unstyled d-flex justify-content-center align-items-center mb-0">
-						<li class="ftco-animate normal-txt">Find me on </li>
-						<li class="ftco-animate"><a href="https://github.com/Avani3112"><span
-									class="icon-github"></span></a></li>
-						<li class="ftco-animate"><a href="https://www.linkedin.com/in/suyashsharma31/"><span
-									class="icon-linkedin"></span></a></li>
-						<li class="ftco-animate"><a href="tel: //0899824782"><span
-									class="icon-whatsapp"></span></a></li>
-					</ul>
-					<br>
-				</div>
-			</div>
-	</section>
-
-
-
-
-	<footer class="ftco-footer ftco-section">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12 text-center">
-
-					<p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-						Copyright &copy;
-						<script>document.write(new Date().getFullYear());</script> All rights reserved | This template
-						is made with <i class="icon-heart color-danger" aria-hidden="true"></i> by <a
-							href="https://colorlib.com" target="_blank">Colorlib</a>
-						<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-					</p>
-				</div>
-			</div>
-		</div>
-	</footer>
-
-
-	<!-- loader -->
-	<div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
-			<circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
-			<circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"
-				stroke="#F96D00" />
-		</svg></div>
-
-
-	<script src="js/jquery.min.js"></script>
-	<script src="js/jquery-migrate-3.0.1.min.js"></script>
-	<script src="js/popper.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/jquery.easing.1.3.js"></script>
-	<script src="js/jquery.waypoints.min.js"></script>
-	<script src="js/jquery.stellar.min.js"></script>
-	<script src="js/owl.carousel.min.js"></script>
-	<script src="js/jquery.magnific-popup.min.js"></script>
-	<script src="js/aos.js"></script>
-	<script src="js/jquery.animateNumber.min.js"></script>
-	<script src="js/scrollax.min.js"></script>
-
-	<script src="js/main.js"></script>
-
+<body>
+
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme">
+        <i data-lucide="sun-moon" size="24"></i>
+    </button>
+
+    <div class="min-h-screen flex flex-col items-center justify-center py-10">
+        <div class="bento-grid">
+            
+            <!-- 1. PROFILE MAIN -->
+            <div class="card area-profile flex flex-col justify-center relative">
+                <div class="absolute top-0 right-0 p-4 opacity-10 text-primary">
+                    <i data-lucide="cpu" size="140"></i>
+                </div>
+                
+                <div class="z-10">
+                    <div class="flex items-center mb-6">
+                        <!-- Profile Pic -->
+                        <div class="w-24 h-24 rounded-full p-1 bg-gradient-to-br from-blue-500 to-indigo-600 mr-6 float-anim shadow-lg shadow-blue-500/30 shrink-0">
+                             <img src="image.jpeg" 
+                                 onerror="this.src='https://ui-avatars.com/api/?name=Suyash+Sharma&background=0D1117&color=38bdf8&size=128'"
+                                 alt="Suyash Sharma" 
+                                 class="w-full h-full rounded-full object-cover border-2 border-slate-900">
+                        </div>
+
+                        <div>
+                            <span class="text-xs text-blue-400 font-bold tracking-wider uppercase mb-1 block">AI Ops Analyst</span>
+                            <h1 class="gradient-text text-3xl md:text-4xl">Suyash Sharma</h1>
+                            <p class="text-sm text-secondary italic mt-1">"Stay Hungry. Stay Foolish." — Steve Jobs</p>
+                        </div>
+                    </div>
+                    
+                    <p class="text-lg mb-6 max-w-md text-secondary">
+                        Transforming Supply Chain Operations through <span class="text-primary font-semibold">AI Automation</span>. Bridging the gap between logistics and code at Logitech.
+                    </p>
+                    
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="badge">First Class Honours (UCC)</span>
+                        <span class="badge">AI Automation Champion</span>
+                        <span class="badge">Prompt Engineering</span>
+                    </div>
+
+                    <div class="flex gap-4">
+                        <!-- Contact -->
+                        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=sharmasuyash415@gmail.com" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full font-medium transition flex items-center gap-2 shadow-lg shadow-blue-900/50">
+                            <i data-lucide="mail" size="16"></i> Contact Me
+                        </a>
+                        
+                        <!-- Download CV -->
+                        <a href="https://drive.google.com/file/d/1Rxr8DGiUnRKpRpHt3eUO1ERNMX-vkuIv/view" target="_blank" 
+                           class="border border-theme hover:border-blue-400 text-secondary hover:text-primary px-6 py-2 rounded-full font-medium transition flex items-center gap-2">
+                            Download CV
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. CURRENT STATUS -->
+            <div class="card area-status bg-card-alt border-theme">
+                <div class="flex justify-between items-start">
+                    <i data-lucide="briefcase" class="text-blue-400"></i>
+                    <span class="inline-flex relative h-3 w-3">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                    </span>
+                </div>
+                <div class="mt-auto">
+                    <p class="text-[10px] text-secondary uppercase tracking-widest mb-1">Current Role</p>
+                    <h3 class="text-xl font-bold text-primary leading-tight">Customer Supply Chain Intern</h3>
+                    <p class="text-sm text-blue-400 mt-1">@ Logitech Ireland</p>
+                </div>
+            </div>
+
+            <!-- 3. TECH STACK -->
+            <div class="card area-stack">
+                <h2>Tech Stack</h2>
+                <div class="tech-grid">
+                    <div class="tech-item"><i data-lucide="code-2"></i><span>Python</span></div>
+                    <div class="tech-item"><i data-lucide="file-json"></i><span>AppScript</span></div>
+                    <div class="tech-item"><i data-lucide="bot"></i><span>GenAI</span></div>
+                    <div class="tech-item"><i data-lucide="database"></i><span>Oracle</span></div>
+                    <div class="tech-item"><i data-lucide="bar-chart-2"></i><span>Tableau</span></div>
+                    <div class="tech-item"><i data-lucide="pie-chart"></i><span>PowerBI</span></div>
+                </div>
+            </div>
+
+            <!-- 4. SOCIAL LINKS -->
+            <div class="card area-socials bg-card-alt flex items-center justify-center">
+                <div class="text-center space-y-8 w-full">
+                    <a href="https://www.linkedin.com/in/suyashsharma31" target="_blank" class="block group">
+                        <div class="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center mx-auto group-hover:scale-110 transition shadow-lg shadow-blue-500/20">
+                            <i data-lucide="linkedin" class="text-white" size="32"></i>
+                        </div>
+                        <p class="text-xs mt-2 text-secondary group-hover:text-primary transition">LinkedIn</p>
+                    </a>
+                    <a href="https://github.com/avani3112" target="_blank" class="block group">
+                        <div class="w-16 h-16 bg-slate-700 rounded-2xl flex items-center justify-center mx-auto group-hover:scale-110 transition border border-slate-600 group-hover:border-white">
+                            <i data-lucide="github" class="text-white" size="32"></i>
+                        </div>
+                        <p class="text-xs mt-2 text-secondary group-hover:text-primary transition">GitHub</p>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 5. FEATURED PROJECT -->
+            <div class="card area-project overflow-hidden group cursor-pointer">
+                <div class="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-slate-900/90 z-10 opacity-0 group-hover:opacity-100 transition duration-500"></div>
+                <!-- Code Background -->
+                <div class="absolute inset-0 p-6 opacity-20 font-mono text-xs text-blue-300 overflow-hidden leading-relaxed select-none">
+                    function automateWeeklyMail() {<br>
+                      const pendingOrders = Oracle.fetchPending();<br>
+                      const updateDraft = Gemini.generateSummary(pendingOrders);<br>
+                      MailApp.sendEmail("team@logi.com", "Weekly Update", updateDraft);<br>
+                    }
+                </div>
+                <div class="relative z-20 flex flex-col h-full justify-between">
+                    <div class="flex justify-between items-center">
+                        <span class="bg-blue-500/20 text-blue-300 text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider">Featured Automation</span>
+                        <i data-lucide="arrow-up-right" class="text-secondary group-hover:text-white group-hover:translate-x-1 group-hover:-translate-y-1 transition"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold mb-2 text-primary group-hover:text-blue-300 transition">Logitech Ops Tools</h3>
+                        <p class="text-sm text-secondary group-hover:text-slate-300 mb-4 max-w-lg">
+                            Built custom tools using <strong>Apps Script & Gemini</strong> to automate weekly email communication and accelerate information retrieval, significantly reducing manual lookup time.
+                        </p>
+                        <div class="flex gap-2">
+                            <span class="text-xs border border-slate-600 px-2 py-1 rounded text-secondary">Apps Script</span>
+                            <span class="text-xs border border-slate-600 px-2 py-1 rounded text-secondary">Gemini API</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6. METRICS -->
+            <div class="card area-metrics bg-card-alt border-t-4" style="border-top-color: var(--metric-border);">
+                <h2 class="text-sm uppercase tracking-widest text-secondary mb-4">Impact</h2>
+                <div class="space-y-4">
+                    <div>
+                        <div class="text-3xl font-bold text-primary">85%</div>
+                        <div class="text-[10px] text-secondary mt-1 uppercase">Time Reduction</div>
+                    </div>
+                    <div class="w-full h-px bg-slate-800"></div>
+                    <div>
+                        <div class="text-3xl font-bold text-primary">100%</div>
+                        <div class="text-[10px] text-secondary mt-1 uppercase">Accuracy</div>
+                    </div>
+                    <div class="w-full h-px bg-slate-800"></div>
+                    <div>
+                        <div class="text-3xl font-bold text-primary">6X</div>
+                        <div class="text-[10px] text-secondary mt-1 uppercase">Faster vs Manual</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 7. LINKEDIN DM BUTTON -->
+            <a href="https://www.linkedin.com/in/suyashsharma31/" target="_blank" class="card area-contact bg-blue-600 border-none text-white flex flex-col justify-center items-center text-center hover:bg-blue-700 cursor-pointer transition group">
+                <i data-lucide="message-circle" size="32" class="mb-3 group-hover:-translate-y-1 transition duration-300"></i>
+                <h3 class="font-bold text-xl">Let's Connect</h3>
+                <p class="text-blue-100 text-xs mt-1">DM me on LinkedIn</p>
+            </a>
+
+            <!-- 8. LIFE JOURNEY -->
+            <div class="card area-journey overflow-y-auto custom-scrollbar">
+                <div class="flex items-center gap-2 mb-3">
+                    <i data-lucide="map-pin" class="text-blue-400" size="20"></i>
+                    <h2 class="text-lg font-bold text-primary m-0">My Journey</h2>
+                </div>
+                <div class="space-y-3">
+                    <p class="text-sm text-secondary leading-relaxed">
+                        I’m a 25-year-old from <span class="text-blue-400 font-semibold">Mhow, Central India</span>, where I learned the fundamentals of operations early—managing supply chains for my father's food business. That experience taught me the value of resilience and execution.
+                    </p>
+                    <p class="text-sm text-secondary leading-relaxed">
+                        It fueled my move to Ireland to pursue a <span class="text-primary font-medium">Masters in Information Systems for Business Performance</span>. Along the way, I founded two side startups generating <span class="text-green-500 font-bold">$50,000+</span> in revenue.
+                    </p>
+                    <p class="text-sm text-secondary leading-relaxed border-l-2 border-blue-500 pl-3">
+                        <span class="italic">"I might not be the smartest in the room, but I am damn consistent."</span>
+                    </p>
+                    <p class="text-sm text-secondary leading-relaxed">
+                         Logitech was my first professional role. I started knowing little about corporate operations, but in less than 10 months, I've transformed into an AI Automation Champion. My path is about hunger, consistency, and solving real problems fast.
+                    </p>
+                </div>
+            </div>
+
+            <!-- 9. EXPERIENCE LOG -->
+            <div class="card area-exp overflow-y-auto custom-scrollbar">
+                <div class="sticky top-0 bg-card-bg pb-3 border-b border-theme mb-4 z-10 flex items-center gap-2">
+                    <i data-lucide="history" size="18" class="text-blue-400"></i>
+                    <h2 class="text-lg font-bold text-primary m-0">Experience Log</h2>
+                </div>
+                
+                <div class="space-y-6">
+                    <!-- Job 1 -->
+                    <div class="flex gap-4 group">
+                        <div class="mt-1 min-w-[24px]"><i data-lucide="play-circle" size="20" class="text-green-400"></i></div>
+                        <div>
+                            <h4 class="font-bold text-primary group-hover:text-blue-400 transition">Logitech Ireland</h4>
+                            <p class="text-xs text-secondary mb-1">CSC Intern | Feb 2025 - Present</p>
+                            <p class="text-sm text-secondary">
+                                Managing EMEA operations for key accounts while pioneering AI adoption. Awarded <strong>'AI Automation Champion'</strong> for building custom tools that automate repetitive communication and accelerate data retrieval.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Job 2 -->
+                    <div class="flex gap-4 group">
+                        <div class="mt-1 min-w-[24px]"><i data-lucide="check-circle-2" size="20" class="text-secondary group-hover:text-primary transition"></i></div>
+                        <div>
+                            <h4 class="font-bold text-secondary group-hover:text-primary transition">Dr. Len Harty (Rheumatologist)</h4>
+                            <p class="text-xs text-secondary mb-1">Healthcare Admin | Mar 2024 - Feb 2025</p>
+                            <p class="text-sm text-secondary">Managed patient communications, records, and billing using Medserv software with high precision.</p>
+                        </div>
+                    </div>
+
+                    <!-- Job 3 -->
+                    <div class="flex gap-4 group">
+                        <div class="mt-1 min-w-[24px]"><i data-lucide="check-circle-2" size="20" class="text-secondary group-hover:text-primary transition"></i></div>
+                        <div>
+                            <h4 class="font-bold text-secondary group-hover:text-primary transition">Tingker IT</h4>
+                            <p class="text-xs text-secondary mb-1">Data Analyst | Dec 2022 - May 2023</p>
+                            <p class="text-sm text-secondary">Created real-time Power BI dashboards boosting client portfolio by 15%.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 10. EDUCATION (ADDED) -->
+            <div class="card area-edu">
+                <div class="flex items-center gap-2 mb-4">
+                    <i data-lucide="graduation-cap" size="20" class="text-blue-400"></i>
+                    <h2 class="text-lg font-bold text-primary m-0">Education</h2>
+                </div>
+                <div class="space-y-4">
+                    <div>
+                        <h4 class="font-bold text-primary text-sm">Masters in Information Systems</h4>
+                        <p class="text-xs text-blue-400">University College Cork (UCC)</p>
+                        <p class="text-xs text-secondary mt-1">Sept 2023 - Sept 2024 | <span class="text-green-500 font-semibold">First Class Honours</span></p>
+                    </div>
+                    <div class="w-full h-px bg-slate-800"></div>
+                    <div>
+                        <h4 class="font-bold text-primary text-sm">Bachelor of Business Administration</h4>
+                        <p class="text-xs text-blue-400">Dr. APJ Abdul Kalam University</p>
+                        <p class="text-xs text-secondary mt-1">June 2018 - June 2021 | Accounting & Finance</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 11. CERTIFICATIONS (ADDED) -->
+            <div class="card area-certs">
+                <div class="flex items-center gap-2 mb-4">
+                    <i data-lucide="award" size="20" class="text-yellow-400"></i>
+                    <h2 class="text-lg font-bold text-primary m-0">Certifications</h2>
+                </div>
+                <div class="space-y-3">
+                     <div class="flex items-start gap-2">
+                        <i data-lucide="badge-check" size="14" class="text-blue-400 mt-1"></i>
+                        <div>
+                            <h4 class="text-sm font-bold text-primary">Integrating AI into Team Workflows</h4>
+                            <p class="text-[10px] text-secondary">Section (with Logitech)</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-2">
+                        <i data-lucide="badge-check" size="14" class="text-blue-400 mt-1"></i>
+                        <div>
+                            <h4 class="text-sm font-bold text-primary">Section ProfAI: AI Proficiency</h4>
+                            <p class="text-[10px] text-secondary">Section (with Logitech)</p>
+                        </div>
+                    </div>
+                     <div class="flex items-start gap-2">
+                        <i data-lucide="badge-check" size="14" class="text-blue-400 mt-1"></i>
+                        <div>
+                            <h4 class="text-sm font-bold text-primary">Google Data Analytics</h4>
+                            <p class="text-[10px] text-secondary">Google</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-2">
+                        <i data-lucide="badge-check" size="14" class="text-blue-400 mt-1"></i>
+                        <div>
+                            <h4 class="text-sm font-bold text-primary">Introduction to IOT</h4>
+                            <p class="text-[10px] text-secondary">Cisco</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- FOOTER -->
+        <footer class="mt-8 mb-12 text-center text-xs text-secondary opacity-70">
+            <p>&copy; 2025 Suyash Sharma. All rights reserved.</p>
+            <p class="mt-1">Built with <span class="text-red-500">♥</span> using AI & Code.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        // Staggered Entrance Animation
+        document.querySelectorAll('.card').forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+                card.style.transition = 'all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, index * 100);
+        });
+
+        // Theme Toggle Logic
+        function toggleTheme() {
+            const html = document.documentElement;
+            const current = html.getAttribute('data-theme');
+            if (current === 'dark') {
+                html.setAttribute('data-theme', 'light');
+            } else {
+                html.setAttribute('data-theme', 'dark');
+            }
+        }
+    </script>
 </body>
-
 </html>
